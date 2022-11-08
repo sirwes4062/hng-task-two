@@ -53,7 +53,11 @@ form {
   background: #ffffff;
   border: 1px solid #d0d5dd;
   box-shadow: rgba(16, 24, 40, 0.05);
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
+}
+.input1:invalid[focused= "true"]{
+
+  border: 1px solid red;
 }
 .last {
   margin-left: 24px;
@@ -71,7 +75,9 @@ form {
   background: #ffffff;
   border: 1px solid #d0d5dd;
   box-shadow: rgba(16, 24, 40, 0.05);
-  margin-bottom: 50px;
+}
+label {
+  margin-top: 24px;
 }
 
 .message {
@@ -87,12 +93,12 @@ form {
   border: 1px solid #d0d5dd;
   box-shadow: rgba(16, 24, 40, 0.05);
   border-radius: 8px;
-  margin-bottom: 24px;
 }
 
 .check {
   display: flex;
   flex-direction: row;
+  margin-top: 24px;
 }
 
 .check p {
@@ -132,4 +138,74 @@ label {
 
 input:focus {
   outline-color: #1570ef;
+}
+
+.send:hover {
+  background-color: rgba(23, 92, 211, 1);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 375px) {
+  .heading {
+    align-items: center;
+  }
+
+  .first-last-name {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .input2 {
+    justify-content: center;
+    align-items: center;
+  }
+  .last {
+    margin-left: 0;
+  }
+  .heading {
+    margin-left: 16px;
+  }
+  .top-paragraph {
+    margin-left: 16px;
+  }
+  .email,
+  .message {
+    width: 344px;
+    height: 44px;
+  }
+  .top-paragraph {
+    font-size: 18px;
+  }
+  .email input {
+    width: 344px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 6px;
+  }
+  .message {
+    margin-top: 34px;
+    height: 132px;
+  }
+  .message input {
+    width: 344px;
+    margin-left: 6px;
+  }
+  .send {
+    width: 344px;
+  }
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background: #ffffff;
+    margin-left: 6px;
+  }
+  .message-text{
+    margin-top: 44px;
+  }
+  form{
+    margin-bottom:98px;
+    margin-top: 64px;
+  }
 }

@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
-import "./Contact.css";
+/** @format */
+
+import React, { useEffect, useState } from "react";
+
 import "../App.css";
 import zuri from "../images/zuri.png";
 import hng from "../images/hng.png";
 import i4g from "../images/I4G.png";
+import "./Contact.css"
 
-import { useState } from "react";
 
 const Contact = () => {
   const initialValues = {
@@ -16,14 +18,18 @@ const Contact = () => {
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
+  const [focused, setFocused] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
-    console.log(e.target)
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    console.log(formValues)
+    console.log(formValues);
   };
+  
+ const handleFocus = (e) => {
+  setFocused(true);
+ }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,29 +41,42 @@ const Contact = () => {
     console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
       console.log(formValues);
+
     }
   }, [formErrors]);
+
+  
 
 
   const validate = (values) => {
     const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
     if (!values.firstname) {
-      errors.firstname = "firstname is required!";
+      errors.firstname = "Firstname is required!";
     }
     if (!values.lastname) {
-      errors.lastname = "lastname is required!";
-    }
-    if (!values.email) {
-      errors.mail = "lastname is required!";
+      errors.lastname = "Lastname is required!";
     }
     if (!values.message) {
-      errors.message = "lastname is required!";
+      errors.message = "message is required!";
     }
-  };
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
 
+    return errors;
+  };
   return (
     <React.Fragment>
-      <form  onSubmit={handleSubmit} >
+      {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
+        <div className="ui message success">Signed in successfully</div>
+      ) : (
+        <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
+      )} */}
+
+      <form onSubmit={handleSubmit}>
         <div>
           <h1 className="heading">Contact Me</h1>
           <p className="top-paragraph">
@@ -68,76 +87,71 @@ const Contact = () => {
             <div className="first">
               <label>First name</label>
               <input
+           
                 className="input1"
                 type="text"
-                name=""
+                name="firstname"
                 id="input1"
                 placeholder="Enter your first name"
                 value={formValues.firstname}
                 onChange={handleChange}
+                onBlur={handleFocus}
+                focused = {focused.toString()}
               />
+               <p style={{color:"red"}}>{formErrors.firstname}</p>
             </div>
-            <p>{formErrors.firstname}</p>
-
-
-
-
+           
+           
 
             <div className="last">
               <label>Last name</label>
               <input
                 className="input2"
                 type="text"
-                name=""
+                name="lastname"
                 id=""
                 placeholder="Enter your last name"
                 value={formValues.lastname}
                 onChange={handleChange}
+                
               />
+               <p style={{color:"red"}}>{formErrors.lastname}</p>
             </div>
           </div>
-          <p>{formErrors.lastname}</p>
-
-
-
-
+         
 
           <div className="email">
             <label>Email</label>
             <input
               type="email"
-              name=""
+              name="email"
               id=""
               placeholder="yourname@email.com"
               value={formValues.email}
               onChange={handleChange}
             />
+             <p style={{color:"red"}}>{formErrors.email}</p>
           </div>
-          <p>{formErrors.email}</p>
-
-
-
+         
 
           <div className="message">
-            <label>Message</label>
+            <label className="message-text">Message</label>
             <input
               type="text"
-              name=""
+              name="message"
               id=""
               placeholder="Send me a message and i'll reply you as soon as possible"
               value={formValues.message}
               onChange={handleChange}
             />
           </div>
-          <p>{formErrors.message}</p>
-
-
-
+          <p style={{color:"red"}}>{formErrors.message}</p>
 
           <div className="check">
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" name="" id="" className="checkbox"/>
             <p className="check-pargraph">
-              you agree to providing your data to Salifu Williams Eneojo who may conatact you
+              you agree to providing your data to Salifu Williams Eneojo who may
+              conatact you
             </p>
           </div>
         </div>
